@@ -19,8 +19,8 @@ EOF
 }
 
 base() {
-rm -rf /opt/pgstage && mkdir -p /opt/pgstage 1>/dev/null 2>&1
-ansible-playbook /opt/ptsupdate/stage/pgstage.yml 1>/dev/null 2>&1
+rm -rf /opt/pgstage && mkdir -p /opt/pgstage
+ansible-playbook /opt/ptsupdate/stage/pgstage.yml
 }
 
 mainstart() {
