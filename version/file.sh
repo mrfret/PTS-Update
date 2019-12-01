@@ -1,82 +1,74 @@
 #!/bin/bash
 #
-# Title:      PTS-Update
-# Author(s):  MrDoobPG
+# Title:      PTS major file
+# org.Author(s):  Admin9705 - Deiteq
+# Mod from MrDoob for PTS
 # GNU:        General Public License v3.0
 ################################################################################
-mainstart() {
-  echo ""
-  echo "💬  Pulling Update Files - Please Wait"
-  file="/opt/pgstage/place.holder"
-  waitvar=0
-  while [ "$waitvar" == "0" ]; do
-    sleep .5
-    if [ -e "$file" ]; then waitvar=1; fi
-  done
+source /opt/plexguide/menu/functions/functions.sh
+source /opt/plexguide/menu/functions/install.sh
 
-  pgnumber=$(cat /var/plexguide/pg.number)
-  # latest=$(cat /opt/pgstage/versions.sh | head -n1)
-  versions=$(cat /opt/pgstage/versions.sh)
-  # dev=$(cat /opt/pgstage/versions.sh | sed -n 2p)
-  release="$(curl -s https://api.github.com/repos/PTS-Team/PTS-Team/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
-
-  tee <<-EOF
+sudocheck() {
+  if [[ $EUID -ne 0 ]]; then
+    tee <<-EOF
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📂  Update Interface
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-$versions
-
-Installed : $pgnumber
-
-[Z] Exit
-
+⛔️  You Must Execute as a SUDO USER (with sudo) or as ROOT!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 EOF
-
-  break=no
-  read -p '🌍  TYPE master | dev or preview | PRESS ENTER: ' typed
-  storage=$(grep $typed /opt/pgstage/versions.sh)
-
-  parttwo
+    exit 1
+  fi
 }
 
-parttwo() {
-  if [[ "$typed" == "exit" || "$typed" == "Exit" || "$typed" == "EXIT" || "$typed" == "z" || "$typed" == "Z" ]]; then
-    echo ""
-    touch /var/plexguide/exited.upgrade
-    exit
+downloadpg() {
+  rm -rf /opt/plexguide
+  git clone --single-branch https://github.com/PTS-Team/PTS-Team.git /opt/plexguide  1>/dev/null 2>&1
+  ansible-playbook /opt/plexguide/menu/version/missing_pull.yml
+  ansible-playbook /opt/plexguide/menu/alias/alias.yml  1>/dev/null 2>&1
+  rm -rf /opt/plexguide/place.holder >/dev/null 2>&1
+  rm -rf /opt/plexguide/.git* >/dev/null 2>&1
+}
+
+missingpull() {
+  file="/opt/plexguide/menu/functions/install.sh"
+  if [ ! -e "$file" ]; then
+    tee <<-EOF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⛔️  Base folder went missing!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EOF
+    sleep 2
+    tee <<-EOF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 🍖  NOM NOM - Re-Downloading PTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EOF
+    sleep 2
+    downloadpg
+    tee <<-EOF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅️  Repair Complete! Standby!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EOF
+    sleep 2
   fi
+}
 
-  if [ "$storage" != "" ]; then
-    break=yes
-    echo -e $storage >/var/plexguide/pg.number
-    ansible-playbook /opt/ptsupdate/version/choice.yml
-
-    tee <<-EOF
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅️  SYSTEM MESSAGE: Installing Version - $typed - Standby!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
-    sleep 2
-    touch /var/plexguide/new.install
-
-    file="/var/plexguide/community.app"
-    if [ -e "$file" ]; then rm -rf /var/plexguide/community.app; fi
-
-    exit
+exitcheck() {
+  bash /opt/ptsupdate/menu/version/file.sh
+  file="/var/plexguide/exited.upgrade"
+  if [ ! -e "$file" ]; then
+    bash /opt/plexguide/menu/interface/ending.sh
   else
-    tee <<-EOF
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⛔️  SYSTEM MESSAGE: Version $typed does not exist! - Standby!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
-    sleep 2
-    mainstart
+    rm -rf /var/plexguide/exited.upgrade 1>/dev/null 2>&1
+    echo ""
+    bash /opt/plexguide/menu/interface/ending.sh
   fi
 }
 
