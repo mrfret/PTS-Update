@@ -76,7 +76,7 @@ alias() {
   ansible-playbook /opt/plexguide/menu/alias/alias.yml 
 }
 
-check(){
+check() {
 file="/opt/plexguide/menu/pg.yml"
   if [[ -f $file ]]; then
   tee <<-EOF
@@ -87,11 +87,11 @@ EOF
  else ansible-playbook /opt/plexguide/menu/version/missing_pull.yml; fi
 }
 
-remove(){
+remove() {
   ansible-playbook /opt/plexguide/menu/pg.yml --tag remove 1>/dev/null 2>&1
 }
 
-redit(){
+redit() {
 canonical-livepatch disable 1>/dev/null 2>&1
 disable-livepatch -r 1>/dev/null 2>&1
 }
