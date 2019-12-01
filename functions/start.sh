@@ -24,7 +24,7 @@ EOF
 downloadpg() {
   rm -rf /opt/plexguide
   git clone --single-branch https://github.com/PTS-Team/PTS-Team.git /opt/plexguide  1>/dev/null 2>&1
-  ansible-playbook /opt/plexguide/menu/version/missing_pull.yml
+  ansible-playbook /opt/ptsupdate/version/missing_pull.yml
   ansible-playbook /opt/plexguide/menu/alias/alias.yml  1>/dev/null 2>&1
   rm -rf /opt/plexguide/place.holder >/dev/null 2>&1
   rm -rf /opt/plexguide/.git* >/dev/null 2>&1
@@ -70,4 +70,33 @@ exitcheck() {
     echo ""
     bash /opt/plexguide/menu/interface/ending.sh
   fi
+}
+
+alias() {
+  ansible-playbook /opt/plexguide/menu/alias/alias.yml 
+}
+
+check(){
+file="/opt/plexguide/menu/pg.yml"
+  if [[ -f $file ]]; then
+  tee <<-EOF
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ All files Valid
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EOF
+ else ansible-playbook /opt/plexguide/menu/version/missing_pull.yml; fi
+}
+
+remove(){
+  ansible-playbook /opt/plexguide/menu/pg.yml --tag remove 1>/dev/null 2>&1
+}
+
+redit(){
+canonical-livepatch disable 1>/dev/null 2>&1
+disable-livepatch -r 1>/dev/null 2>&1
+}
+
+owned() {
+  chown -cR 1000:1000 /opt/plexguide 1>/dev/null 2>&1
+  chmod -R 775 /opt/plexguide 1>/dev/null 2>&1
 }
