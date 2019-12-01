@@ -5,8 +5,8 @@
 # Mod from MrDoob for PTS
 # GNU:        General Public License v3.0
 ################################################################################
-source /opt/ptsupdate/menu/functions/functions.sh
-source /opt/ptsupdate/menu/functions/install.sh
+source /opt/ptsupdate/functions/functions.sh
+source /opt/ptsupdate/functions/install.sh
 
 sudocheck() {
   if [[ $EUID -ne 0 ]]; then
@@ -25,6 +25,7 @@ downloadpg() {
   rm -rf /opt/plexguide
   git clone --single-branch https://github.com/PTS-Team/PTS-Team.git /opt/plexguide  1>/dev/null 2>&1
   ansible-playbook /opt/ptsupdate/version/missing_pull.yml
+  sleep 10s
   ansible-playbook /opt/plexguide/menu/alias/alias.yml  1>/dev/null 2>&1
   rm -rf /opt/plexguide/place.holder >/dev/null 2>&1
   rm -rf /opt/plexguide/.git* >/dev/null 2>&1
