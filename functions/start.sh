@@ -21,7 +21,7 @@ EOF
   fi
 }
 
-downloadpg() {
+downloadpg(){
   rm -rf /opt/plexguide
   git clone --single-branch https://github.com/PTS-Team/PTS-Team.git /opt/plexguide  1>/dev/null 2>&1
   ansible-playbook /opt/ptsupdate/version/missing_pull.yml

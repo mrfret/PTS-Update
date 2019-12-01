@@ -61,7 +61,7 @@ EOF
 }
 
 exitcheck() {
-  bash /opt/ptsupdate/menu/version/file.sh
+  bash /opt/ptsupdate/version/file.sh
   file="/var/plexguide/exited.upgrade"
   if [ ! -e "$file" ]; then
     bash /opt/plexguide/menu/interface/ending.sh
@@ -72,7 +72,7 @@ exitcheck() {
   fi
 }
 
-base(){
+base() {
 rm -rf /opt/pgstage && mkdir -p /opt/pgstage
 ansible-playbook /opt/ptsupdate/stage/pgstage.yml #&>/de v/null &
 }
