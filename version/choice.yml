@@ -20,7 +20,6 @@
 
     - name: 'Remove old PTS folder'
       shell: 'rm -rf /opt/plexguide'
-      when: stat_result.stdout == true
 
     - name: 'Installing Version {{serverid.stdout}}'
       git:
