@@ -25,8 +25,6 @@ ansible-playbook /opt/ptsupdate/stage/pgstage.yml 1>/dev/null 2>&1
 }
 
 mainstart() {
-  echo ""
-  echo "💬  Pulling Update Files - Please Wait"
   file="/opt/pgstage/place.holder"
   waitvar=0
   while [ "$waitvar" == "0" ]; do
