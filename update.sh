@@ -15,7 +15,7 @@ sudocheck() {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 EOF
-    exit 1
+    exit 0
   fi
 }
 
@@ -53,7 +53,7 @@ Installed : $pgnumber
 EOF
 
   break=no
-  read -p '🌍  TYPE master | dev or preview | PRESS ENTER: ' typed
+  read -p '🌍  TYPE Version | PRESS ENTER: ' typed
   storage=$(grep $typed /opt/pgstage/versions.sh)
   parttwo
 }
