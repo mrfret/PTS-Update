@@ -53,6 +53,6 @@ file="/opt/plexguide/menu/pg.yml"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ All files Valid and > PTS is up to date <
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-'
+' >>/var/plexguide/logs/pg.log
  else ansible-playbook /opt/plexguide/menu/version/missing_pull.yml; fi
 }
