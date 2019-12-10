@@ -52,3 +52,17 @@
     - name: 'Stops First Time Run'
       shell: 'touch /var/plexguide/ask.yes'
       register: program
+
+#######updatepart
+
+    - cron:
+        name: Build a Cron Job - autoupdate
+        special_time: 'weekly'
+        job: 'autoupdatepts 1>/dev/null 2>&1'
+        state: absent
+
+    - cron:
+        name: Build a Cron Job - autoupdate
+        special_time: 'weekly'
+        job: 'autoupdatepts 1>/dev/null 2>&1'
+        state: present
