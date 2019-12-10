@@ -36,10 +36,10 @@ owned() {
 check() {
 file="/opt/plexguide/menu/pg.yml"
   if [[ -f $file ]]; then
-  tee <<-EOF
+  printf '
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ All files Valid and latest version pulled
+✅ All files Valid and > PTS is up to date <
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
+'
  else ansible-playbook /opt/plexguide/menu/version/missing_pull.yml; fi
 }

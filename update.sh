@@ -136,8 +136,14 @@ file="/opt/plexguide/menu/pg.yml"
   if [[ -f $file ]]; then
   tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ All files Valid and latest version pulled
+✅ All files Valid and > PTS is up to date <
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
+  printf '
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ All files Valid and > PTS is up to date <
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+' >>/var/plexguide/logs/pg.log
  else ansible-playbook /opt/plexguide/menu/version/missing_pull.yml; fi
 }
+
