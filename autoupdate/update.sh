@@ -8,6 +8,7 @@
 
 start0() {
 mainstart
+cleartabs
 info
 alias
 owned
@@ -22,6 +23,10 @@ mainstart() {
     if [ -e "$file" ]; then waitvar=1; fi
   done
    ansible-playbook /opt/ptsupdate/autoupdate/version/choice.yml 1>/dev/null 2>&1
+}
+
+cleartabs() {
+truncate -s 0 /var/plexguide/logs/*
 }
 
 info() {
