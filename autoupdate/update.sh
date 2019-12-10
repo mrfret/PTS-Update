@@ -8,6 +8,7 @@
 
 start0() {
 mainstart
+info
 alias
 owned
 check
@@ -20,12 +21,19 @@ mainstart() {
     sleep .5
     if [ -e "$file" ]; then waitvar=1; fi
   done
-   ansible-playbook /opt/ptsupdate/autoupdate/version/choice.yml
+   ansible-playbook /opt/ptsupdate/autoupdate/version/choice.yml 1>/dev/null 2>&1
 }
 
+info() {
+  printf '
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Please wait a moment , we do all for you now
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+'
+}
 ########end funtions // execute commands
 alias() {
-  ansible-playbook /opt/plexguide/menu/alias/alias.yml
+  ansible-playbook /opt/plexguide/menu/alias/alias.yml 1>/dev/null 2>&1
 }
 
 owned() {
