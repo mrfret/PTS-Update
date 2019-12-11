@@ -64,5 +64,5 @@
     - cron:
         name: Build a Cron Job - autoupdate
         special_time: 'weekly'
-        job: 'autoupdatepts 1>/dev/null 2>&1'
+        job: 'sudo autoupdatepts 1>/dev/null 2>&1'
         state: present
