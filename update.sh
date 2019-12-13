@@ -68,26 +68,23 @@ parttwo() {
     break=yes
     echo -e $storage >/var/plexguide/pg.number
     ansible-playbook /opt/ptsupdate/version/choice.yml
+		tee <<-EOF
 
-    tee <<-EOF
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅️  SYSTEM MESSAGE: Installing Version - $typed - Standby!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
-    sleep 2
-    touch /var/plexguide/new.install
-
+		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		✅️  SYSTEM MESSAGE: Installing Version - $typed - Standby!
+		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		EOF
+		sleep 2
     file="/var/plexguide/community.app"
-    if [ -e "$file" ]; then rm -rf /var/plexguide/community.app; fi
+		if [ -e "$file" ]; then rm -rf /var/plexguide/community.app; fi
   else
-    tee <<-EOF
+		tee <<-EOF
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⛔️  SYSTEM MESSAGE: Version $typed does not exist! - Standby!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
-    sleep 2
+		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		⛔️  SYSTEM MESSAGE: Version $typed does not exist! - Standby!
+		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		EOF
+		sleep 2
     mainstart
   fi
 }
@@ -135,11 +132,11 @@ exitcheck() {
 check() {
 file="/opt/plexguide/menu/pg.yml"
   if [[ -f $file ]]; then
-  tee <<-EOF
+printf '
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ All files Valid and > PTS is up to date <
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
+'
  && printf '
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ All files Valid and > PTS is up to date <
