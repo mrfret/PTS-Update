@@ -8,15 +8,15 @@
 
 start0() {
 mainstart
-cleartabs
-info
-alias
-owned
+cleartabs  1>/dev/null 2>&1
+info 
+alias  1>/dev/null 2>&1
+owned  1>/dev/null 2>&1
 check
 }
 
 mainstart() {
-  file="/opt/pgstage/place.holder"
+  file="/opt/ptsupdate/place.holder"
   waitvar=0
   while [ "$waitvar" == "0" ]; do
     sleep .5
@@ -30,10 +30,10 @@ truncate -s 0 /var/plexguide/logs/*
 }
 
 info() {
-  printf '
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+printf '
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ Please wait one moment, while PTS now checks and set everything up for you!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 '
 }
 ########end funtions // execute commands
@@ -53,7 +53,7 @@ file="/opt/plexguide/menu/pg.yml"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ All files Valid and > PTS is up to date <
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-' &&
+' 
   printf '
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ All files Valid and > PTS is up to date <

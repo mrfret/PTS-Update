@@ -75,9 +75,9 @@ parttwo() {
 		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		EOF
 		sleep 2
-    file="/var/plexguide/community.app"
+        file="/var/plexguide/community.app"
 		if [ -e "$file" ]; then rm -rf /var/plexguide/community.app; fi
-  else
+    else
 		tee <<-EOF
 
 		━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -94,7 +94,6 @@ alias 1>/dev/null 2>&1
 remove 1>/dev/null 2>&1
 redit 1>/dev/null 2>&1
 owned 1>/dev/null 2>&1
-exitcheck
 cleartabs
 check
 }
@@ -129,11 +128,8 @@ owned() {
   chmod -R 775 /opt/plexguide
 }
 
-exitcheck() {
- bash /opt/plexguide/menu/interface/ending.sh 
-}
-
 check() {
+ bash /opt/plexguide/menu/interface/ending.sh 
 file="/opt/plexguide/menu/pg.yml"
   if [[ -f $file ]]; then
 printf '
