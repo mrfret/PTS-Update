@@ -95,6 +95,7 @@ remove 1>/dev/null 2>&1
 redit 1>/dev/null 2>&1
 owned 1>/dev/null 2>&1
 exitcheck
+cleartabs
 check
 }
 
@@ -114,6 +115,9 @@ remove() {
   ansible-playbook /opt/plexguide/menu/pg.yml --tag remove
 }
 
+cleartabs() {
+truncate -s 0 /var/plexguide/logs/*
+}
 
 redit() {
 canonical-livepatch disable
