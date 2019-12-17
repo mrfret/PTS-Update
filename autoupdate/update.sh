@@ -16,6 +16,17 @@ owned  1>/dev/null 2>&1
 check
 }
 
+sudocheck() {
+  if [[ $EUID -ne 0 ]]; then
+    tee <<-EOF
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⛔️  You Must Execute as a SUDO USER (with sudo) or as ROOT!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EOF
+    exit 0
+  fi
+}
+
 mainstart() {
   file="/opt/ptsupdate/place.holder"
   waitvar=0
