@@ -8,13 +8,11 @@
 
 sudocheck() {
   if [[ $EUID -ne 0 ]]; then
-    tee <<-EOF
-
+printf '
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⛔️  You Must Execute as a SUDO USER (with sudo) or as ROOT!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-EOF
+'
     exit 0
   fi
 }
