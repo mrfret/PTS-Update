@@ -56,6 +56,7 @@ alias() {
 owned() {
   chown -cR 1000:1000 /opt/plexguide
   chmod -R 775 /opt/plexguide
+  service mountcheck restart
 }
 
 check() {
