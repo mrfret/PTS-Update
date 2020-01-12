@@ -13,6 +13,7 @@ cleartabs  1>/dev/null 2>&1
 info 
 alias  1>/dev/null 2>&1
 owned  1>/dev/null 2>&1
+replaceui
 check
 }
 
@@ -52,11 +53,25 @@ printf '
 alias() {
   ansible-playbook /opt/plexguide/menu/alias/alias.yml 1>/dev/null 2>&1
 }
+replaceui() {
+pgui=$(docker ps --format '{{.Names}}' | grep "pgui")
+upper=$(docker ps --format '{{.Names}}' | grep "uploader")
+pas=$(systemctl list-unit-files | grep plex_autoscan.service | awk '{ print $2 }')
+
+if [[ "$pgui" == "pgui" && "$upper" == "uploader" ]]; then
+  cp -r /opt/plexguide/menu/pgui/templates/index.php /opt/appdata/pgui/index.php && docker restart pgui && sudo service mountcheck restart
+fi
+if [[ "$pgui" == "pgui" && "$upper" != "uploader" ]]; then
+cp -r /opt/plexguide/menu/pgui/templates/oldui.php /opt/appdata/pgui/index.php && docker restart pgui && sudo service mountcheck restart
+fi
+if [[ "$pgui" == "pgui" && "$upper" != "uploader" && "$pas" == "enabled" ]]; then
+cp -r /opt/plexguide/menu/pgui/templates/autoscan-index.php /opt/appdata/pgui/index.php && docker restart pgui && sudo service mountcheck restart
+fi
+}
 
 owned() {
   chown -cR 1000:1000 /opt/plexguide
   chmod -R 775 /opt/plexguide
-  service mountcheck restart
 }
 
 check() {
