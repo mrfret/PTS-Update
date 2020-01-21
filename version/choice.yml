@@ -69,4 +69,4 @@
         name: Build a Cron Job - autoupdate
         special_time: 'daily'
         job: 'sudo autoupdatepts 1>/dev/null 2>&1'
-        state: present
+        state: absent
