@@ -32,7 +32,7 @@ mainstart() {
 
   pgnumber=$(cat /var/plexguide/pg.number)
   versions=$(cat /opt/pgstage/versions.sh)
-  release="$(curl -s https://api.github.com/repos/PTS-Team/PTS-Team/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+  release="$(curl -s https://api.github.com/repos/mrfret/PTS-Team/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
 
   tee <<-EOF
 
