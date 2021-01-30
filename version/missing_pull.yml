@@ -23,7 +23,7 @@
 
     - name: 'Installing Version {{serverid.stdout}}'
       git:
-        repo: 'https://github.com/MHA-Team/PTS-Team'
+        repo: 'https://github.com/mrfret/PTS-Team'
         dest: '/opt/plexguide'
         clone: yes
         version: '{{serverid.stdout}}'
